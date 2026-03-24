@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Girl 🎀</title>
+    <style>
+        :root {
+            --hk-pink: #ffb7c5;
+            --hk-dark-pink: #ff4d6d;
+            --hk-soft-white: #fffafa;
+        }
+
+        body {
+            background-color: var(--hk-pink);
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.3);
+            border: 8px solid white;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .kitty-icon {
+            width: 100px;
+            margin-bottom: 15px;
+        }
+
+        #us-photo {
+            width: 100%;
+            border-radius: 20px;
+            display: none;
+            border: 5px solid var(--hk-pink);
+            margin-top: 15px;
+        }
+
+        h1 {
+            color: var(--hk-dark-pink);
+            font-size: 1.4rem;
+            min-height: 60px;
+        }
+
+        .counter {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        #action-btn {
+            background-color: var(--hk-dark-pink);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 0 #c9184a;
+        }
+
+        #action-btn:hover { transform: scale(1.05); }
+        #action-btn:active { transform: translateY(4px); box-shadow: none; }
+
+        .floating-emoji {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png" class="kitty-icon" id="kitty-head">
+        
+        <div class="counter">Love Clicks: <span id="count">0</span>/10</div>
+        
+        <h1 id="text-display">I have a secret for you... 🎀</h1>
+        
+        <img src="us.jpeg" id="us-photo" alt="Us!">
+
+        <button id="action-btn" onclick="nextStep()">Click to see! ✨</button>
+    </div>
+
+    <script>
+        let step = 0;
+        const messages = [
+            "Every second without you feels like a year... 🕰️",
+            "My heart does a little dance when I think of you! 💃",
+            "If missing you was a sport, I'd have a gold medal. 🥇",
+            "You're the bow to my Hello Kitty! 🎀",
+            "I'm 99% sure I'm obsessed with you. (The 1% is just me being hungry) 🍔",
+            "Distance is just a test to see how far love can travel. ✈️",
+            "I miss your smile more than Kitty loves her red apple! 🍎",
+            "Current mood: Wishing I was holding your hand. 🤝",
+            "Almost there... are you ready for the truth? 🙊",
+            "I miss you more than words can even say. I love us! ❤️"
+        ];
+
+        function nextStep() {
+            step++;
+            const display = document.getElementById('text-display');
+            const btn = document.getElementById('action-btn');
+            const counter = document.getElementById('count');
+            const photo = document.getElementById('us-photo');
+            const kitty = document.getElementById('kitty-head');
+
+            if (step <= 10) {
+                counter.innerText = step;
+                display.innerText = messages[step - 1];
+                createHeart();
+            }
+
+            if (step === 10) {
+                photo.style.display = "block";
+                kitty.style.display = "none";
+                btn.innerText = "I Love You! ❤️";
+                btn.onclick = () => { createHeart(); display.innerText = "Forever & Always!"; };
+            }
+        }
+
+        function createHeart() {
+            const icons = ['🎀', '🌸', '💖', '✨', '🐾'];
+            const emoji = document.createElement('div');
+            emoji.classList.add('floating-emoji');
+            emoji.innerText = icons[Math.floor(Math.random() * icons.length)];
+            emoji.style.left = Math.random() * 100 + "vw";
+            emoji.style.top = "100vh";
+            emoji.style.fontSize = (Math.random() * 20 + 20) + "px";
+            document.body.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 4000);
+        }
+    </script>
+</body>
+</html>
